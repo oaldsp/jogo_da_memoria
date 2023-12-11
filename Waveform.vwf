@@ -1,16 +1,16 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off Jogo_memoria -c Jogo_memoria --vector_source="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/Waveform.vwf" --testbench_file="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/Waveform.vwf.vt"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off Jogo_memoria -c Jogo_memoria --vector_source="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/Waveform.vwf" --testbench_file="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/Waveform.vwf.vt"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/" Jogo_memoria -c Jogo_memoria</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=verilog --output_directory="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/" Jogo_memoria -c Jogo_memoria</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off Jogo_memoria -c Jogo_memoria --vector_source="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/Waveform.vwf" --testbench_file="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/Waveform.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off Jogo_memoria -c Jogo_memoria --vector_source="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/Waveform.vwf" --testbench_file="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/Waveform.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/" Jogo_memoria -c Jogo_memoria</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/otavi/OneDrive/Desktop/Circuitos_Digitais/Jogo_memoria/simulation/qsim/" Jogo_memoria -c Jogo_memoria</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
-vlog -work work Jogo_memoria.vo
-vlog -work work Waveform.vwf.vt
-vsim -novopt -c -t 1ps -L fiftyfivenm_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.Jogo_memoria_vlg_vec_tst
+vcom -work work Jogo_memoria.vho
+vcom -work work Waveform.vwf.vht
+vsim -novopt -c -t 1ps -L fiftyfivenm -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.Jogo_memoria_vhd_vec_tst
 vcd file -direction Jogo_memoria.msim.vcd
-vcd add -internal Jogo_memoria_vlg_vec_tst/*
-vcd add -internal Jogo_memoria_vlg_vec_tst/i1/*
+vcd add -internal Jogo_memoria_vhd_vec_tst/*
+vcd add -internal Jogo_memoria_vhd_vec_tst/i1/*
 proc simTimestamp {} {
     echo "Simulation time: $::now ps"
     if { [string equal running [runStatus]] } {
@@ -24,12 +24,12 @@ quit -f
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
-vlog -work work Jogo_memoria.vo
-vlog -work work Waveform.vwf.vt
-vsim -novopt -c -t 1ps -L fiftyfivenm_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.Jogo_memoria_vlg_vec_tst
+vcom -work work Jogo_memoria.vho
+vcom -work work Waveform.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax Jogo_memoria_vhd_vec_tst/i1=Jogo_memoria_vhd.sdo -L fiftyfivenm -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.Jogo_memoria_vhd_vec_tst
 vcd file -direction Jogo_memoria.msim.vcd
-vcd add -internal Jogo_memoria_vlg_vec_tst/*
-vcd add -internal Jogo_memoria_vlg_vec_tst/i1/*
+vcd add -internal Jogo_memoria_vhd_vec_tst/*
+vcd add -internal Jogo_memoria_vhd_vec_tst/i1/*
 proc simTimestamp {} {
     echo "Simulation time: $::now ps"
     if { [string equal running [runStatus]] } {
@@ -41,7 +41,7 @@ run -all
 quit -f
 
 </modelsim_script_timing>
-<hdl_lang>verilog</hdl_lang>
+<hdl_lang>vhdl</hdl_lang>
 </simulation_settings>*/
 /*
 WARNING: Do NOT edit the input and output ports in this file in a text
@@ -75,6 +75,16 @@ HEADER
 	GRID_PHASE = 0.0;
 	GRID_PERIOD = 10.0;
 	GRID_DUTY_CYCLE = 50;
+}
+
+SIGNAL("clk50MHz")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
 }
 
 SIGNAL("leds")
@@ -165,16 +175,6 @@ SIGNAL("leds[0]")
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
 	PARENT = "leds";
-}
-
-SIGNAL("clk50MHz")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
 }
 
 SIGNAL("pb0")
@@ -377,6 +377,21 @@ SIGNAL("sw[0]")
 	PARENT = "sw";
 }
 
+TRANSITION_LIST("clk50MHz")
+{
+	NODE
+	{
+		REPEAT = 1;
+		NODE
+		{
+			REPEAT = 33;
+			LEVEL 0 FOR 15.0;
+			LEVEL 1 FOR 15.0;
+		}
+		LEVEL 0 FOR 10.0;
+	}
+}
+
 TRANSITION_LIST("leds[7]")
 {
 	NODE
@@ -449,26 +464,16 @@ TRANSITION_LIST("leds[0]")
 	}
 }
 
-TRANSITION_LIST("clk50MHz")
-{
-	NODE
-	{
-		REPEAT = 1;
-		NODE
-		{
-			REPEAT = 20;
-			LEVEL 0 FOR 25.0;
-			LEVEL 1 FOR 25.0;
-		}
-	}
-}
-
 TRANSITION_LIST("pb0")
 {
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 70.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 120.0;
+		LEVEL 0 FOR 10.0;
+		LEVEL 1 FOR 780.0;
 	}
 }
 
@@ -477,9 +482,9 @@ TRANSITION_LIST("pb1")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 140.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 820.0;
+		LEVEL 1 FOR 250.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 730.0;
 	}
 }
 
@@ -605,7 +610,7 @@ TRANSITION_LIST("sw[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -623,7 +628,7 @@ TRANSITION_LIST("sw[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 1 FOR 1000.0;
 	}
 }
 
