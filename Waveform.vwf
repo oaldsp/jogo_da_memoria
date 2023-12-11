@@ -21,6 +21,8 @@ after 2500 simTimestamp
 run -all
 quit -f
 
+
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -39,6 +41,8 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
+
 
 </modelsim_script_timing>
 <hdl_lang>vhdl</hdl_lang>
@@ -377,6 +381,26 @@ SIGNAL("sw[0]")
 	PARENT = "sw";
 }
 
+SIGNAL("a")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("e")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
 TRANSITION_LIST("clk50MHz")
 {
 	NODE
@@ -473,7 +497,9 @@ TRANSITION_LIST("pb0")
 		LEVEL 0 FOR 20.0;
 		LEVEL 1 FOR 120.0;
 		LEVEL 0 FOR 10.0;
-		LEVEL 1 FOR 780.0;
+		LEVEL 1 FOR 240.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 510.0;
 	}
 }
 
@@ -484,7 +510,9 @@ TRANSITION_LIST("pb1")
 		REPEAT = 1;
 		LEVEL 1 FOR 250.0;
 		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 730.0;
+		LEVEL 1 FOR 260.0;
+		LEVEL 0 FOR 10.0;
+		LEVEL 1 FOR 460.0;
 	}
 }
 
@@ -629,6 +657,24 @@ TRANSITION_LIST("sw[0]")
 	{
 		REPEAT = 1;
 		LEVEL 1 FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("a")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("e")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
 	}
 }
 
@@ -927,6 +973,24 @@ DISPLAY_LINE
 	TREE_INDEX = 29;
 	TREE_LEVEL = 1;
 	PARENT = 21;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "a";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 30;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "e";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 31;
+	TREE_LEVEL = 0;
 }
 
 TIME_BAR
